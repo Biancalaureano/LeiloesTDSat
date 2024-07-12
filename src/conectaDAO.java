@@ -22,7 +22,7 @@ public class conectaDAO {
         
         try {
         
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/leiloes_tds_sat?user=root&password=1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/leiloes_tds_sat?useSSL=false&verifyServerCertificate=true" , "root" , "1234" );
             
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
