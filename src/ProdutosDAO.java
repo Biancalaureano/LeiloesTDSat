@@ -21,7 +21,7 @@ public class ProdutosDAO {
     Connection conn;
     PreparedStatement prep;
     ResultSet resultset;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
+    ArrayList<ProdutosDTO> listaProdutos = new ArrayList<>();
     
     public void cadastrarProduto (ProdutosDTO produto){
         
@@ -45,7 +45,33 @@ public class ProdutosDAO {
     
     public ArrayList<ProdutosDTO> listarProdutos(){
         
-        return listagem;
+       try {
+
+                    conn = new conectaDAO().connectDB();
+                    prep = conn.prepareStatement("SELECT * FROM produtos");
+                    resultset = prep.executeQuery();            
+
+                    while (resultset.next()) { 
+
+                        ProdutosDTO produto = new ProdutosDTO();
+
+                        produto.setId(resultset.getInt("id"));
+                        produto.setNome(resultset.getString("nome"));
+                        produto.setValor(resultset.getInt("valor"));
+                        produto.setStatus(resultset.getString("status"));
+
+                        listaProdutos.add(produto);    
+
+                    }
+
+                    return listaProdutos;
+
+                } catch (SQLException e) {
+
+                    return null;
+
+                }
+        
     }
     
     
